@@ -139,4 +139,6 @@ CORS_ALLOWED_ORIGINS = [
     "https://automation-website-naij.onrender.com",  
 ]
 
+CORS_ALLOW_ALL_ORIGINS = True
+
 
