@@ -124,8 +124,10 @@ class CategoryListAPIView(generics.ListAPIView):
 class ServiceViewSet(viewsets.ModelViewSet):
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer
+    permission_classes = [AllowAny]
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
+    permission_classes = [AllowAny]
