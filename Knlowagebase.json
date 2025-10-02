@@ -1,0 +1,164 @@
+{
+  "hosting": {
+    "plans": ["1 month", "3 months", "6 months", "12 months"],
+    "price": {
+      "basic": 30,
+      "standard": 50,
+      "premium": 80,
+      "enterprise": 150
+    },
+    "currency": "USD",
+    "features": [
+      "99.9% uptime guarantee",
+      "Free SSL certificate",
+      "Daily backups",
+      "24/7 customer support",
+      "Unlimited bandwidth (Premium+)",
+      "Dedicated IP for Enterprise"
+    ]
+  },
+  "automation": {
+    "real_estate": {
+      "id": 1,
+      "title": "Real Estate Automation",
+      "description": "Automate property management tasks for residential and commercial properties.",
+      "price": 200,
+      "currency": "USD",
+      "features": [
+        "Rent collection reminders",
+        "Tenant communication portal",
+        "Maintenance request tracking",
+        "Automatic invoice generation",
+        "Lease agreement reminders",
+        "Analytics dashboard for occupancy and income"
+      ]
+    },
+    "ecommerce": {
+      "id": 2,
+      "title": "E-commerce Automation",
+      "description": "Workflow automation for online stores of any size.",
+      "price": 180,
+      "currency": "USD",
+      "features": [
+        "Order processing automation",
+        "Inventory management alerts",
+        "Customer support chatbots",
+        "Sales analytics dashboard",
+        "Discount & coupon management",
+        "Abandoned cart recovery automation"
+      ]
+    },
+    "restaurants": {
+      "id": 3,
+      "title": "Restaurant & Cafe Automation",
+      "description": "Smart automation solutions for restaurants and cafes.",
+      "price": 150,
+      "currency": "USD",
+      "features": [
+        "Online reservations & table management",
+        "Automatic order tracking",
+        "Staff scheduling automation",
+        "Inventory alerts for ingredients",
+        "Customer feedback collection",
+        "Menu & promotion management"
+      ]
+    },
+    "hotels": {
+      "id": 4,
+      "title": "Hotel Automation",
+      "description": "Hotel workflow and operations automation.",
+      "price": 250,
+      "currency": "USD",
+      "features": [
+        "Online booking system",
+        "Room availability tracking",
+        "Guest check-in/check-out automation",
+        "Maintenance scheduling",
+        "Housekeeping management",
+        "Analytics for occupancy and revenue"
+      ]
+    }
+  },
+  "security": {
+    "cameras": {
+      "id": 5,
+      "title": "Smart Cameras",
+      "description": "Smart surveillance solutions for offices and buildings.",
+      "price": 100,
+      "currency": "USD",
+      "features": [
+        "Real-time monitoring",
+        "Motion detection alerts",
+        "Cloud video storage",
+        "AI-based face recognition",
+        "Night vision",
+        "Multi-camera integration"
+      ]
+    },
+    "access_control": {
+      "id": 6,
+      "title": "Access Control Systems",
+      "description": "Control building or office access securely.",
+      "price": 120,
+      "currency": "USD",
+      "features": [
+        "Smart card entry",
+        "Fingerprint/Face ID recognition",
+        "Remote lock/unlock",
+        "Access logs",
+        "Temporary access codes for visitors",
+        "Integration with mobile app"
+      ]
+    }
+  },
+  "services": [
+    {
+      "id": 7,
+      "title": "Workflow Design",
+      "description": "Custom n8n workflows tailored to your business processes, connecting all your tools seamlessly.",
+      "price": 50,
+      "currency": "USD",
+      "features": ["Visual workflow builder", "Custom logic implementation", "Process optimization"]
+    },
+    {
+      "id": 8,
+      "title": "Cloud Integration",
+      "description": "Connect your cloud services, databases, and APIs for automated data synchronization.",
+      "price": 60,
+      "currency": "USD",
+      "features": ["Multi-cloud support", "Real-time sync", "Secure connections"]
+    },
+    {
+      "id": 9,
+      "title": "API Automation",
+      "description": "Automate API calls, data transformations, and system integrations with intelligent triggers.",
+      "price": 70,
+      "currency": "USD",
+      "features": ["REST & GraphQL APIs", "Data transformation", "Error handling"]
+    },
+    {
+      "id": 10,
+      "title": "Notification Systems",
+      "description": "Smart notification workflows across email, Slack, SMS, and custom channels.",
+      "price": 40,
+      "currency": "USD",
+      "features": ["Multi-channel alerts", "Smart filtering", "Custom templates"]
+    },
+    {
+      "id": 11,
+      "title": "Dashboard & Reporting",
+      "description": "Automated report generation and real-time dashboards for data-driven insights.",
+      "price": 80,
+      "currency": "USD",
+      "features": ["Auto-generated reports", "Real-time analytics", "Custom visualizations"]
+    },
+    {
+      "id": 12,
+      "title": "Data Processing",
+      "description": "Automated data collection, cleaning, and processing pipelines for better insights.",
+      "price": 90,
+      "currency": "USD",
+      "features": ["ETL workflows", "Data validation", "Batch processing"]
+    }
+  ]
+}

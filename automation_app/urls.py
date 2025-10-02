@@ -1,5 +1,5 @@
 from django.urls import path,include
-from .views import signup_api, login_api, logout_api,CategoryListAPIView, ServiceViewSet,ProjectViewSet
+from .views import signup_api, login_api, logout_api,CategoryListAPIView, ServiceViewSet,ProjectViewSet,chatbot_api
 from . import views
 from rest_framework import routers
 
@@ -17,5 +17,6 @@ urlpatterns = [
     path("api/logout/", logout_api, name="api_logout"),
     path('api/categories/', CategoryListAPIView.as_view(), name='categories-list'),
     path('orders/', views.create_order, name='create_order'),
+    path('api/chatbot/', chatbot_api, name='chatbot-api'),
     path('', include(router.urls)),
 ]
