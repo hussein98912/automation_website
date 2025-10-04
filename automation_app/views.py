@@ -76,6 +76,8 @@ def login_api(request):
         refresh = RefreshToken.for_user(user)
         return Response({
             "message": f"Welcome, {username}!",
+            "user_id": user.id,        # 👈 Add user ID
+            "username": user.username, # 👈 Add username
             "access": str(refresh.access_token),
             "refresh": str(refresh)
         }, status=status.HTTP_200_OK)
@@ -259,7 +261,7 @@ def chatbot_api(request):
                 attachment=temp_order["attachment"]
             )
             bot_reply = f"✅ Your order has been created! Order ID: {order.id}"
-            ORDER_TEMP.pop(user_id)  # مسح الحالة المؤقتة بعد الإنشاء
+            ORDER_TEMP.pop(user_id)  
 
     # حفظ المحادثة
     ChatHistory.objects.create(user_id=user_id or "guest", message=message, response=bot_reply)
