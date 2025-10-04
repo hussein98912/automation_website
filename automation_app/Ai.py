@@ -52,7 +52,7 @@ def ai_chat_response(user_message, conversation_history=[]):
     messages.append({"role": "user", "content": kb_text + "\nCustomer: " + user_message})
 
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o-mini",
         messages=messages
     )
 

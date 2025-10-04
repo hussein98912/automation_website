@@ -240,13 +240,18 @@ def chatbot_api(request):
             bot_reply = "Got it! Can you provide the workflow details? You can ask me to suggest them."
 
     # ===== خطوة 4: تفاصيل الوركفلو =====
-    elif not temp_order["workflow_details"]:
-        if "suggest" in normalized_msg:
-            temp_order["workflow_details"] = suggest_workflow_details(temp_order["workflow_name"])
-            bot_reply = f"I suggest the workflow details:\n{temp_order['workflow_details']}\nDo you want to attach a file to your order? (Optional)"
+    elif not temp_order.get("file_attached"):
+        normalized_msg = message.lower().strip()
+        
+        if normalized_msg in ["no", "nope", "nah"]:
+            temp_order["file_attached"] = None  # يعني المستخدم اختار لا
+            bot_reply = "Okay, no problem 😊 Your order is almost ready! Please confirm to submit it."
+        
+        elif "yes" in normalized_msg:
+            bot_reply = "Please upload your file now 📎"
+        
         else:
-            temp_order["workflow_details"] = message
-            bot_reply = "Do you want to attach a file to your order? (Optional)"
+            bot_reply = "Sorry, I didn’t understand that. Please answer 'yes' or 'no'."
 
     # ===== خطوة 5: المرفقات والتأكيد =====
     else:
