@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser,User
 from django.db import models
 from django.conf import settings
+from .price import calculate_order_price
 
 class CustomUser(AbstractUser):
     full_name = models.CharField(max_length=200)
@@ -30,6 +31,9 @@ class Service(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     features = models.JSONField(default=list, blank=True)
+    #price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
@@ -75,8 +79,16 @@ class Order(models.Model):
         ("12_months", "12 months"),
     ]
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="orders")
-    service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name="orders")
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="orders"
+    )
+    service = models.ForeignKey(
+        Service,
+        on_delete=models.CASCADE,
+        related_name="orders"
+    )
     workflow_name = models.CharField(max_length=200, blank=True)
     workflow_details = models.TextField(blank=True)
     attachment = models.FileField(upload_to='orders_attachments/', blank=True, null=True)
@@ -88,19 +100,14 @@ class Order(models.Model):
         help_text="مدة الاستضافة للخدمة"
     )
     total_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    industry = models.CharField(max_length=50, blank=True, null=True)
     
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
     created_at = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
-        # Adjust total_price based on host_duration
-        duration_multiplier = {
-            "1_month": 1,
-            "3_months": 2.8,   # 10% discount for 3 months
-            "6_months": 5.2,   # 13% discount for 6 months
-            "12_months": 10,   # 17% discount for 12 months
-        }
-        self.total_price = self.service.price * duration_multiplier.get(self.host_duration, 1)
+        # Calculate total price from KB
+        self.total_price = calculate_order_price(self.service.title, self.host_duration)
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -142,6 +149,7 @@ class ChatHistory(models.Model):
     message = models.TextField()
     response = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
+    is_bot = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.user_id} - {self.timestamp}"

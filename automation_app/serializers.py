@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Category, Service, Order,Project
+from .models import Category, Service, Order,Project,ChatHistory
+from .price import calculate_order_price
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -16,31 +17,21 @@ class ProjectSerializer(serializers.ModelSerializer):
         model = Project
         fields = "__all__"
 
+class ChatHistorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ChatHistory
+        fields = "__all__"
+
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ['id', 'service', 'host_duration', 'total_price']
+        fields = [
+            'id',
+            'service',
+            'industry',
+            'host_duration',
+            'workflow_name',
+            'workflow_details',
+            'total_price',
+        ]
         read_only_fields = ['total_price']
-
-    def create(self, validated_data):
-        user = self.context['request'].user
-        service = validated_data['service']
-        host_duration = validated_data['host_duration']
-
-        # Calculate total_price based on host_duration
-        multiplier = {
-            '1_month': 1,
-            '3_months': 3,
-            '6_months': 6,
-            '12_months': 12
-        }
-        total_price = service.price * multiplier.get(host_duration, 1)
-
-        order = Order.objects.create(
-            user=user,
-            service=service,
-            host_duration=host_duration,
-            total_price=total_price
-        )
-        return order
-    
