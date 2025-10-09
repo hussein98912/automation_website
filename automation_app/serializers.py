@@ -33,5 +33,7 @@ class OrderSerializer(serializers.ModelSerializer):
             'workflow_name',
             'workflow_details',
             'total_price',
+            'status',
+            'created_at',
         ]
-        read_only_fields = ['total_price']
+        read_only_fields = ['total_price','status','created_at']
