@@ -1,6 +1,8 @@
 from rest_framework import serializers
-from .models import Category, Service, Order,Project,ChatHistory
+from .models import Category, Service, Order,Project,ChatHistory,CustomUser
 from .price import calculate_order_price
+from rest_framework.serializers import ModelSerializer
+
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -37,3 +39,11 @@ class OrderSerializer(serializers.ModelSerializer):
             'created_at',
         ]
         read_only_fields = ['total_price','status','created_at']
+
+class CustomUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['id', 'username', 'full_name', 'email', 'address', 'phone_number']
+
+
+

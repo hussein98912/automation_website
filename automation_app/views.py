@@ -1,19 +1,20 @@
 # views.py
 import re
-from decimal import Decimal
+from rest_framework.views import APIView
 from django.contrib.auth import get_user_model, login, authenticate
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status, viewsets, permissions, generics
 from rest_framework.decorators import api_view, permission_classes, authentication_classes, action
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny,IsAuthenticated
 from .models import Category, Service, Order, Project, ChatHistory
-from .serializers import CategorySerializer, ServiceSerializer, OrderSerializer, ProjectSerializer
+from .serializers import CategorySerializer, ServiceSerializer, OrderSerializer, ProjectSerializer,CustomUserSerializer
 from .Ai import ai_chat_response, suggest_workflow_name, suggest_workflow_details
 from .price import calculate_order_price  # KB pricing function
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from difflib import get_close_matches
+from django.contrib.auth.models import User
 
 User = get_user_model()
 
@@ -382,4 +383,18 @@ def chatbot_api(request):
     })
 
 
+
+
+
+
+
+
+
+class CurrentUserView(APIView):
+    permission_classes = [IsAuthenticated]  # Requires valid access token
+
+    def get(self, request):
+        user = request.user  # Automatically set by JWTAuthentication
+        serializer = CustomUserSerializer(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
