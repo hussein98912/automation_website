@@ -7,7 +7,7 @@ from rest_framework import status, viewsets, permissions, generics
 from rest_framework.decorators import api_view, permission_classes, authentication_classes, action
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.permissions import AllowAny,IsAuthenticated
+from rest_framework.permissions import AllowAny,IsAuthenticated,IsAdminUser
 from .models import Category, Service, Order, Project, ChatHistory
 from .serializers import CategorySerializer, ServiceSerializer, OrderSerializer, ProjectSerializer,CustomUserSerializer
 from .Ai import ai_chat_response, suggest_workflow_name, suggest_workflow_details
@@ -17,6 +17,13 @@ from difflib import get_close_matches
 from django.contrib.auth.models import User
 
 User = get_user_model()
+
+
+
+class UserListView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = CustomUserSerializer
+    permission_classes = [AllowAny]
 
 # -------------------------------
 # User Authentication APIs
@@ -128,6 +135,12 @@ class OrderViewSet(viewsets.ModelViewSet):
             workflow_name=workflow_name,
             workflow_details=workflow_details
         )
+    @action(detail=False, methods=["get"], permission_classes=[AllowAny])
+    def all(self, request):
+        """Admin-only endpoint to list all orders."""
+        orders = Order.objects.all().order_by("-created_at")
+        serializer = self.get_serializer(orders, many=True)
+        return Response(serializer.data)
 
     @action(detail=False, methods=["post"])
     def manual_create(self, request):
